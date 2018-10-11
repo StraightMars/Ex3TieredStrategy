@@ -198,7 +198,7 @@ namespace table_lab_3
                 }
 
                 //вызов функции
-                char[,] result = new char[6, 4];
+                char[,] result = new char[numOfPoints, numOfWorkers]; // временно
 
                 dgv_table.RowCount = result.GetLength(0); // кол-во строк
                 dgv_table.ColumnCount = result.GetLength(1); // кол-во столбцов

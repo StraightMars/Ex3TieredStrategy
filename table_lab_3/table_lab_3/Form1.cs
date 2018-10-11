@@ -24,7 +24,7 @@ namespace table_lab_3
         }
 
         TextBox[,] linesMatrix = new TextBox[0, 0]; // матрица ребер
-        int numOfWorkers;
+        int numOfWorkers, numOfPoints;
 
         private void txtbx_NumOfWorkers_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -48,13 +48,15 @@ namespace table_lab_3
         }
         private void bttn_NumOfWorkers_Click(object sender, EventArgs e)
         {
-            if (Convert.ToInt32(txtbx_NumOfPoints.Text) > 15) // ограничение на кол-во вершин
+            if (Convert.ToInt32(txtbx_NumOfWorkers.Text) > 15 || Convert.ToInt32(txtbx_NumOfWorkers.Text) < 2) // ограничение на кол-во работников
             {
-                MessageBox.Show("Вы ввели слишком большое число\nМаксимальное кол-во: 14", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Неверный ввод!\nКол-во исполнителей принимает значение от 2 до 15", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtbx_NumOfWorkers.Text = numOfWorkers.ToString();
             }
             else
             {
                 numOfWorkers = Convert.ToInt32(txtbx_NumOfWorkers.Text); // получили кол-во работников
+                bttn_NumOfWorkers.Enabled = false;
             }
         }
 
@@ -82,12 +84,15 @@ namespace table_lab_3
 
         private void bttn_NumOfPoints_Click(object sender, EventArgs e)
         {
-            if (Convert.ToInt32(txtbx_NumOfPoints.Text) > 15) // ограничение на кол-во вершин
+            if (Convert.ToInt32(txtbx_NumOfPoints.Text) > 15 || Convert.ToInt32(txtbx_NumOfPoints.Text) < 2) // ограничение на кол-во вершин
             {
-                MessageBox.Show("Вы ввели слишком большое число\nМаксимальное кол-во: 14", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Неверный ввод!\nКол-во вершин принимает значение от 2 до 15", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtbx_NumOfPoints.Text = numOfPoints.ToString();
             }
             else
             {
+                bttn_NumOfPoints.Enabled = false;
+
                 for (int i = 0; i < linesMatrix.GetLength(0); i++) // удаление предыдущих текстбоксов
                 {
                     for (int j = 0; j < linesMatrix.GetLength(1); j++)
@@ -96,7 +101,7 @@ namespace table_lab_3
                     }
                 }
 
-                int numOfPoints = Convert.ToInt32(txtbx_NumOfPoints.Text); // кол-во вершин
+                numOfPoints = Convert.ToInt32(txtbx_NumOfPoints.Text); // кол-во вершин
 
                 linesMatrix = new TextBox[numOfPoints - 1, 2]; // матрица ребер
 
@@ -107,7 +112,7 @@ namespace table_lab_3
                 int endY = 700; // нижняя граница по у
 
                 int stepX = (endX - startX) / 2; // шаг по х
-                int stepY = (endY - startY) / 14; // шаг по у
+                int stepY = (endY - startY) / 15; // шаг по у
 
                 int currX = startX;
                 int currY = startY;
@@ -141,24 +146,43 @@ namespace table_lab_3
         private void bttn_Start_Click(object sender, EventArgs e)
         {
             bool ok = true;
-            for (int i = 0; i < linesMatrix.GetLength(0); i++)
-            {
-                if (ok)
-                {
-                    for (int j = 0; j < linesMatrix.GetLength(1); j++)
-                    {
-                        if (linesMatrix[i, j].Text == "")
-                        {
-                            ok = false;
-                            break;
 
+            if (numOfWorkers == 0)
+            {
+                ok = false;
+                MessageBox.Show("Вы не ввели кол-во работников!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            if (ok)
+            {
+                if(linesMatrix.GetLength(0) == 0 || linesMatrix.GetLength(1) == 0)
+                {
+                    ok = false;
+                    MessageBox.Show("Вы не ввели кол-во вершин!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+            if (ok)
+            {
+                for (int i = 0; i < linesMatrix.GetLength(0); i++)
+                {
+                    if (ok)
+                    {
+                        for (int j = 0; j < linesMatrix.GetLength(1); j++)
+                        {
+                            if (linesMatrix[i, j].Text == "")
+                            {
+                                ok = false;
+                                break;
+
+                            }
                         }
                     }
-                }
-                else
-                {
-                    MessageBox.Show("Не все поля были заполнены!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    break;
+                    else
+                    {
+                        MessageBox.Show("Не все поля были заполнены!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                    }
                 }
             }
 

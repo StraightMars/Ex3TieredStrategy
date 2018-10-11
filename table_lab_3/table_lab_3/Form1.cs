@@ -20,7 +20,6 @@ namespace table_lab_3
         private void mainForm_Load(object sender, EventArgs e)
         {
             bttn_NumOfPoints.Enabled = false;
-            
         }
 
         TextBox[,] linesMatrix = new TextBox[0, 0]; // матрица ребер
@@ -60,9 +59,9 @@ namespace table_lab_3
             }
             else
             {
-                for(int i = 0; i < linesMatrix.GetLength(0); i++) // удаление предыдущих текстбоксов
+                for (int i = 0; i < linesMatrix.GetLength(0); i++) // удаление предыдущих текстбоксов
                 {
-                    for(int j = 0; j < linesMatrix.GetLength(1); j++)
+                    for (int j = 0; j < linesMatrix.GetLength(1); j++)
                     {
                         Controls.Remove(linesMatrix[i, j]);
                     }
@@ -73,7 +72,7 @@ namespace table_lab_3
                 linesMatrix = new TextBox[numOfPoints - 1, 2]; // матрица ребер
 
                 int startX = 12; // левая граница по х
-                int endX = 436; // правая граница по х
+                int endX = 400; // правая граница по х
 
                 int startY = 90; // верхняя граница по у
                 int endY = 800; // нижняя граница по у
@@ -84,7 +83,7 @@ namespace table_lab_3
                 int currX = startX;
                 int currY = startY;
 
-
+                // вывод текстбоксов
                 for (int i = 0; i < linesMatrix.GetLength(0); i++)
                 {
                     for (int j = 0; j < linesMatrix.GetLength(1); j++)
@@ -108,6 +107,31 @@ namespace table_lab_3
                 }
             }
 
+        }
+
+        private void bttn_Start_Click(object sender, EventArgs e)
+        {
+            bool ok = true;
+            for (int i = 0; i < linesMatrix.GetLength(0); i++)
+            {
+                if (ok)
+                {
+                    for (int j = 0; j < linesMatrix.GetLength(1); j++)
+                    {
+                        if (linesMatrix[i, j].Text == "")
+                        {
+                            ok = false;
+                            break;
+
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Не все поля были заполнены!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+                }
+            }
         }
     }
 }

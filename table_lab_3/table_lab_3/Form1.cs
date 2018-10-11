@@ -20,7 +20,10 @@ namespace table_lab_3
         private void mainForm_Load(object sender, EventArgs e)
         {
             bttn_NumOfPoints.Enabled = false;
+            
         }
+
+        TextBox[,] linesMatrix = new TextBox[0, 0]; // матрица ребер
 
         private void txtbx_NumOfPoints_TextChanged(object sender, EventArgs e)
         {
@@ -57,9 +60,17 @@ namespace table_lab_3
             }
             else
             {
+                for(int i = 0; i < linesMatrix.GetLength(0); i++) // удаление предыдущих текстбоксов
+                {
+                    for(int j = 0; j < linesMatrix.GetLength(1); j++)
+                    {
+                        Controls.Remove(linesMatrix[i, j]);
+                    }
+                }
+
                 int numOfPoints = Convert.ToInt32(txtbx_NumOfPoints.Text); // кол-во вершин
 
-                TextBox[,] linesMatrix = new TextBox[numOfPoints - 1, 2]; // матрица ребер
+                linesMatrix = new TextBox[numOfPoints - 1, 2]; // матрица ребер
 
                 int startX = 12; // левая граница по х
                 int endX = 436; // правая граница по х

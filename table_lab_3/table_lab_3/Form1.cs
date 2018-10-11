@@ -19,7 +19,7 @@ namespace table_lab_3
 
         private void mainForm_Load(object sender, EventArgs e)
         {
-
+            bttn_NumOfPoints.Enabled = false;
         }
 
         private void txtbx_NumOfPoints_TextChanged(object sender, EventArgs e)
@@ -38,6 +38,15 @@ namespace table_lab_3
                 txtbx_NumOfPoints.Text = txtbx_NumOfPoints.Text.Substring(0, txtbx_NumOfPoints.Text.Length - 1);
                 txtbx_NumOfPoints.SelectionStart = txtbx_NumOfPoints.Text.Length;
             }
+            
+        }
+
+        private void txtbx_NumOfPoints_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (txtbx_NumOfPoints.Text != "")
+                bttn_NumOfPoints.Enabled = true; // Разблокировали кнопку
+            else
+                bttn_NumOfPoints.Enabled = false; // Заблокировали кнопку
         }
     }
 }

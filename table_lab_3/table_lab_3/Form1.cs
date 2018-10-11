@@ -20,9 +20,43 @@ namespace table_lab_3
         private void mainForm_Load(object sender, EventArgs e)
         {
             bttn_NumOfPoints.Enabled = false;
+            bttn_NumOfWorkers.Enabled = false;
         }
 
         TextBox[,] linesMatrix = new TextBox[0, 0]; // матрица ребер
+        int numOfWorkers;
+
+        private void txtbx_NumOfWorkers_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsDigit(e.KeyChar)) // Вводятся только числа
+                e.Handled = true;
+
+            if (e.KeyChar == (char)Keys.Back && txtbx_NumOfWorkers.SelectionStart != 0 &&
+                txtbx_NumOfWorkers.Text != "") // Удаление по нажатию backspace
+            {
+                txtbx_NumOfWorkers.Text = txtbx_NumOfWorkers.Text.Substring(0, txtbx_NumOfWorkers.Text.Length - 1);
+                txtbx_NumOfWorkers.SelectionStart = txtbx_NumOfWorkers.Text.Length;
+            }
+        }
+
+        private void txtbx_NumOfWorkers_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (txtbx_NumOfWorkers.Text != "")
+                bttn_NumOfWorkers.Enabled = true; // Разблокировали кнопку
+            else
+                bttn_NumOfWorkers.Enabled = false; // Заблокировали кнопку
+        }
+        private void bttn_NumOfWorkers_Click(object sender, EventArgs e)
+        {
+            if (Convert.ToInt32(txtbx_NumOfPoints.Text) > 15) // ограничение на кол-во вершин
+            {
+                MessageBox.Show("Вы ввели слишком большое число\nМаксимальное кол-во: 14", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                numOfWorkers = Convert.ToInt32(txtbx_NumOfWorkers.Text); // получили кол-во работников
+            }
+        }
 
         private void txtbx_NumOfPoints_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -134,17 +168,5 @@ namespace table_lab_3
             }
         }
 
-        private void txtbx_NumOfWorkers_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!Char.IsDigit(e.KeyChar)) // Вводятся только числа
-                e.Handled = true;
-
-            if (e.KeyChar == (char)Keys.Back && txtbx_NumOfWorkers.SelectionStart != 0 &&
-                txtbx_NumOfWorkers.Text != "") // Удаление по нажатию backspace
-            {
-                txtbx_NumOfWorkers.Text = txtbx_NumOfWorkers.Text.Substring(0, txtbx_NumOfWorkers.Text.Length - 1);
-                txtbx_NumOfWorkers.SelectionStart = txtbx_NumOfWorkers.Text.Length;
-            }
-        }
     }
 }

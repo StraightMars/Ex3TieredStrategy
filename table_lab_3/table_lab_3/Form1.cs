@@ -155,7 +155,7 @@ namespace table_lab_3
 
             if (ok)
             {
-                if(linesMatrix.GetLength(0) == 0 || linesMatrix.GetLength(1) == 0)
+                if (linesMatrix.GetLength(0) == 0 || linesMatrix.GetLength(1) == 0)
                 {
                     ok = false;
                     MessageBox.Show("Вы не ввели кол-во вершин!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -189,6 +189,27 @@ namespace table_lab_3
             if (ok)
             {
                 //вызов функции
+                char[,] result = new char[6, 4];
+
+                dgv_table.RowCount = result.GetLength(0); // кол-во строк
+                dgv_table.ColumnCount = result.GetLength(1); // кол-во столбцов
+                dgv_table.RowHeadersWidth = 50; // Задали ширину столбца с названиями
+
+
+                for (int i = 0; i < dgv_table.RowCount; i++)
+                {
+                    dgv_table.Rows[i].HeaderCell.Value = Convert.ToString(i + 1); // Название строк
+                    dgv_table.Rows[i].Height = 450 / dgv_table.RowCount; // Высота строки
+
+                    for (int j = 0; j < dgv_table.ColumnCount; j++)
+                    {
+                        dgv_table.Columns[j].HeaderText = Convert.ToString(j + 1); // Названия столбцов
+                        dgv_table.Columns[j].Width = 625 / dgv_table.ColumnCount; // Ширина столбцов
+                        dgv_table.Columns[j].SortMode = DataGridViewColumnSortMode.NotSortable; // Нельзя сортировать
+
+                        dgv_table.Rows[i].Cells[j].Value = result[i, j];
+                    }
+                }
             }
         }
 

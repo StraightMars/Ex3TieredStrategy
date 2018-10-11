@@ -188,6 +188,15 @@ namespace table_lab_3
 
             if (ok)
             {
+                char[] firstColumn = new char[linesMatrix.GetLength(0)]; // первый столбец в ребрах
+                char[] secondColumn = new char[linesMatrix.GetLength(0)]; // второй столбец в ребрах
+
+                for(int i = 0; i < linesMatrix.GetLength(0); i++)
+                {
+                    firstColumn[i] = Convert.ToChar(linesMatrix[i, 0].Text);
+                    secondColumn[i] = Convert.ToChar(linesMatrix[i, 1].Text);
+                }
+
                 //вызов функции
                 char[,] result = new char[6, 4];
 

@@ -24,11 +24,6 @@ namespace table_lab_3
 
         TextBox[,] linesMatrix = new TextBox[0, 0]; // матрица ребер
 
-        private void txtbx_NumOfPoints_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void txtbx_NumOfPoints_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!Char.IsDigit(e.KeyChar)) // Вводятся только числа
@@ -74,8 +69,8 @@ namespace table_lab_3
                 int startX = 12; // левая граница по х
                 int endX = 400; // правая граница по х
 
-                int startY = 90; // верхняя граница по у
-                int endY = 800; // нижняя граница по у
+                int startY = 170; // верхняя граница по у
+                int endY = 700; // нижняя граница по у
 
                 int stepX = (endX - startX) / 2; // шаг по х
                 int stepY = (endY - startY) / 14; // шаг по у
@@ -131,6 +126,24 @@ namespace table_lab_3
                     MessageBox.Show("Не все поля были заполнены!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     break;
                 }
+            }
+
+            if (ok)
+            {
+                //вызов функции
+            }
+        }
+
+        private void txtbx_NumOfWorkers_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsDigit(e.KeyChar)) // Вводятся только числа
+                e.Handled = true;
+
+            if (e.KeyChar == (char)Keys.Back && txtbx_NumOfWorkers.SelectionStart != 0 &&
+                txtbx_NumOfWorkers.Text != "") // Удаление по нажатию backspace
+            {
+                txtbx_NumOfWorkers.Text = txtbx_NumOfWorkers.Text.Substring(0, txtbx_NumOfWorkers.Text.Length - 1);
+                txtbx_NumOfWorkers.SelectionStart = txtbx_NumOfWorkers.Text.Length;
             }
         }
     }

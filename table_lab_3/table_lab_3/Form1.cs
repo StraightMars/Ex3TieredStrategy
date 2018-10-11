@@ -16,5 +16,28 @@ namespace table_lab_3
         {
             InitializeComponent();
         }
+
+        private void mainForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtbx_NumOfPoints_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtbx_NumOfPoints_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsDigit(e.KeyChar)) // Вводятся только числа
+                e.Handled = true;
+
+            if (e.KeyChar == (char)Keys.Back && txtbx_NumOfPoints.SelectionStart != 0 &&
+                txtbx_NumOfPoints.Text != "") // Удаление по нажатию backspace
+            {
+                txtbx_NumOfPoints.Text = txtbx_NumOfPoints.Text.Substring(0, txtbx_NumOfPoints.Text.Length - 1);
+                txtbx_NumOfPoints.SelectionStart = txtbx_NumOfPoints.Text.Length;
+            }
+        }
     }
 }
